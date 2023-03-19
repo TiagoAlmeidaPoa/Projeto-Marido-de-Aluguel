@@ -7,8 +7,10 @@ public class Operador extends Pessoa {
 		super();
 	}
 
-	public Operador(Integer id, String name, String cpf, String telefone) {
-		super(id, name, cpf, telefone);
+	public Operador(Integer id, String nome, String cpf, String telefone) {
+		super(id, nome, cpf, telefone);
 	}
+
+	
 
 }

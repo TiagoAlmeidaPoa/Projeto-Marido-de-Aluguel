@@ -6,7 +6,7 @@ public abstract class Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
-	private String name;
+	private String nome;
 	private String cpf;
 	private String telefone;
 
@@ -14,10 +14,10 @@ public abstract class Pessoa implements Serializable {
 		super();
 	}
 
-	public Pessoa(Integer id, String name, String cpf, String telefone) {
+	public Pessoa(Integer id, String nome, String cpf, String telefone) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.nome = nome;
 		this.cpf = cpf;
 		this.telefone = telefone;
 	}
@@ -31,11 +31,11 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	public String getName() {
-		return name;
+		return nome;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String nome) {
+		this.nome = nome;
 	}
 
 	public String getCpf() {

@@ -7,8 +7,8 @@ public class Cliente extends Pessoa {
 		super();
 	}
 
-	public Cliente(Integer id, String name, String cpf, String telefone) {
-		super(id, name, cpf, telefone);
+	public Cliente(Integer id, String nome, String cpf, String telefone) {
+		super(id, nome, cpf, telefone);
 	}
 
 }
