@@ -1,7 +1,17 @@
 package com.tiago.maridodealuguel.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Operador extends Pessoa {
 	private static final long serialVersionUID = 1L;
+	
+	@OneToMany(mappedBy = "operador")
+	private List<OS> listaOS = new ArrayList<>();
 
 	public Operador() {
 		super();
@@ -11,6 +21,12 @@ public class Operador extends Pessoa {
 		super(id, nome, cpf, telefone);
 	}
 
-	
+	public List<OS> getListaOS() {
+		return listaOS;
+	}
+
+	public void setListaOS(List<OS> listaOS) {
+		this.listaOS = listaOS;
+	}
 
 }

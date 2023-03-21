@@ -3,18 +3,39 @@ package com.tiago.maridodealuguel.domain;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tiago.maridodealuguel.domain.enums.Prioridade;
 import com.tiago.maridodealuguel.domain.enums.Status;
 
+@Entity
 public class OS {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime dataAbertura;
+
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime dataFechamento;
 	private Integer prioridade;
 	private Integer status;
 	private String observacoes;
+
+	@ManyToOne
+	@JoinColumn(name = "operador_id")
 	private Operador operador;
+
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 	private Double preco;
 
