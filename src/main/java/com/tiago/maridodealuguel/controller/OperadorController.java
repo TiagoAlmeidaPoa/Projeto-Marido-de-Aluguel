@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tiago.maridodealuguel.domain.Operador;
+import com.tiago.maridodealuguel.dtos.OperadorDTO;
 import com.tiago.maridodealuguel.service.OperadorService;
 
 @RestController
@@ -18,9 +18,9 @@ public class OperadorController {
 	private OperadorService service;
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Operador> findById(@PathVariable Integer id){
-		Operador operador = service.findById(id);
-		return ResponseEntity.ok().body(operador);
+	public ResponseEntity<OperadorDTO> findById(@PathVariable Integer id){
+		OperadorDTO operadorDTO = new OperadorDTO(service.findById(id));
+		return ResponseEntity.ok().body(operadorDTO);
 	}
 
 }
