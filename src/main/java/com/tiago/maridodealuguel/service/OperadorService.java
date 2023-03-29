@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.tiago.maridodealuguel.domain.Operador;
 import com.tiago.maridodealuguel.repositories.OperadorRepository;
+import com.tiago.maridodealuguel.service.exceptions.ObjectNotFoundException;
 
 @Service
 public class OperadorService {
@@ -16,7 +17,8 @@ public class OperadorService {
 	
 	public Operador findById(Integer id) {
 		Optional<Operador> operador = repository.findById(id);
-		return operador.orElse(null);
+		return operador.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado ! " + id + ", Tipo: " + Operador.class.getName()));
 	}
 
 }
