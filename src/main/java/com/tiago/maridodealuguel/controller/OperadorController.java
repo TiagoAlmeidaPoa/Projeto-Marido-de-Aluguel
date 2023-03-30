@@ -1,5 +1,8 @@
 package com.tiago.maridodealuguel.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +24,12 @@ public class OperadorController {
 	public ResponseEntity<OperadorDTO> findById(@PathVariable Integer id){
 		OperadorDTO operadorDTO = new OperadorDTO(service.findById(id));
 		return ResponseEntity.ok().body(operadorDTO);
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<OperadorDTO>> findAll(){		
+		List<OperadorDTO> dtos = service.findAll().stream().map(op -> new OperadorDTO(op)).collect(Collectors.toList());				
+		return ResponseEntity.ok().body(dtos);
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.tiago.maridodealuguel.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,10 @@ public class OperadorService {
 		Optional<Operador> operador = repository.findById(id);
 		return operador.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado ! " + id + ", Tipo: " + Operador.class.getName()));
+	}
+
+	public List<Operador> findAll() {
+		return repository.findAll();
 	}
 
 }
