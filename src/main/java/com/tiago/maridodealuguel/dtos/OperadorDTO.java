@@ -16,6 +16,10 @@ public class OperadorDTO implements Serializable {
 	private String cpf;
 	private String telefone;
 
+	public OperadorDTO() {
+		super();
+	}
+
 	public OperadorDTO(Operador operador) {
 		this.id = operador.getId();
 		this.nome = operador.getName();

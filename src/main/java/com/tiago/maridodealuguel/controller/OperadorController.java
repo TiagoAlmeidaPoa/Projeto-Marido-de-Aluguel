@@ -1,5 +1,6 @@
 package com.tiago.maridodealuguel.controller;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -7,9 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.tiago.maridodealuguel.domain.Operador;
 import com.tiago.maridodealuguel.dtos.OperadorDTO;
 import com.tiago.maridodealuguel.service.OperadorService;
 
@@ -31,5 +36,11 @@ public class OperadorController {
 		List<OperadorDTO> dtos = service.findAll().stream().map(op -> new OperadorDTO(op)).collect(Collectors.toList());				
 		return ResponseEntity.ok().body(dtos);
 	}
-
+	
+	@PostMapping
+	public ResponseEntity<OperadorDTO> create(@RequestBody OperadorDTO operadorDTO) {
+		Operador operador = service.create(operadorDTO);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(operador.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
 }

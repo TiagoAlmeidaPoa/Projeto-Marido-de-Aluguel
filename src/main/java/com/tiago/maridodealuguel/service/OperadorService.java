@@ -7,15 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tiago.maridodealuguel.domain.Operador;
+import com.tiago.maridodealuguel.dtos.OperadorDTO;
 import com.tiago.maridodealuguel.repositories.OperadorRepository;
 import com.tiago.maridodealuguel.service.exceptions.ObjectNotFoundException;
 
 @Service
 public class OperadorService {
-	
+
 	@Autowired
 	private OperadorRepository repository;
-	
+
 	public Operador findById(Integer id) {
 		Optional<Operador> operador = repository.findById(id);
 		return operador.orElseThrow(() -> new ObjectNotFoundException(
@@ -24,6 +25,11 @@ public class OperadorService {
 
 	public List<Operador> findAll() {
 		return repository.findAll();
+	}
+
+	public Operador create(OperadorDTO operadorDTO) {
+		Operador operador = new Operador(null, operadorDTO.getNome(), operadorDTO.getCpf(), operadorDTO.getTelefone());
+		return repository.save(operador);
 	}
 
 }
