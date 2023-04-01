@@ -28,8 +28,16 @@ public class OperadorService {
 	}
 
 	public Operador create(OperadorDTO operadorDTO) {
-		Operador operador = new Operador(null, operadorDTO.getNome(), operadorDTO.getCpf(), operadorDTO.getTelefone());
-		return repository.save(operador);
+		if(findByCPF(operadorDTO) != null) {
+			throw new DataIntegratyViolationException("CPF já cadastrado na base de dados!");
+		}
+		return repository.save(new Operador(null, operadorDTO.getNome(), operadorDTO.getCpf(), operadorDTO.getTelefone()));
+		
+	}
+	
+	public Operador findByCPF(OperadorDTO objDTO) {
+		Operador obj = repository.findByCPF(objDTO.getCpf());
+		return (obj != null) ? obj : null;
 	}
 
 }
