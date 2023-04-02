@@ -2,6 +2,8 @@ package com.tiago.maridodealuguel.dtos;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.tiago.maridodealuguel.domain.Operador;
@@ -10,9 +12,12 @@ public class OperadorDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
+	
+	@NotEmpty(message = "O campo NOME é requerido")
 	private String nome;
 
 	@CPF
+	@NotEmpty(message = "O campo CPF é requerido")
 	private String cpf;
 	private String telefone;
 
