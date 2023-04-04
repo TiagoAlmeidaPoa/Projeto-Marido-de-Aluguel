@@ -37,24 +37,32 @@ public class OperadorService {
 				.save(new Operador(null, operadorDTO.getNome(), operadorDTO.getCpf(), operadorDTO.getTelefone()));
 
 	}
-	
+
 	public Operador update(Integer id, @Valid OperadorDTO objDTO) {
 		Operador oldObj = findById(id);
-		
-		if(findByCPF(objDTO) != null && findByCPF(objDTO).getId() != id) {
+
+		if (findByCPF(objDTO) != null && findByCPF(objDTO).getId() != id) {
 			throw new DataIntegratyViolationException("CPF já cadastrado na base de dados!");
 		}
-		
+
 		oldObj.setCpf(objDTO.getCpf());
 		oldObj.setName(objDTO.getNome());
 		oldObj.setTelefone(objDTO.getTelefone());
-		
+
 		return repository.save(oldObj);
 	}
 
 	public Operador findByCPF(OperadorDTO objDTO) {
 		Operador obj = repository.findByCPF(objDTO.getCpf());
 		return (obj != null) ? obj : null;
+	}
+
+	public void delete(Integer id) {
+		Operador obj = findById(id);
+		if(obj.getListaOS().size() > 0) {
+			throw new DataIntegratyViolationException("Operador possui ordens de serviço, não pode ser deletado!");
+		}
+		repository.deleteById(obj.getId());
 	}
 
 }
