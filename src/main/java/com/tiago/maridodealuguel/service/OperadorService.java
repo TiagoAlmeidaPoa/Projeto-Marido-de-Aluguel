@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tiago.maridodealuguel.domain.Operador;
+import com.tiago.maridodealuguel.domain.Pessoa;
 import com.tiago.maridodealuguel.dtos.OperadorDTO;
 import com.tiago.maridodealuguel.repositories.OperadorRepository;
+import com.tiago.maridodealuguel.repositories.PessoaRepository;
 import com.tiago.maridodealuguel.service.exceptions.ObjectNotFoundException;
 
 @Service
@@ -18,6 +20,9 @@ public class OperadorService {
 
 	@Autowired
 	private OperadorRepository repository;
+	
+	@Autowired
+	private PessoaRepository pessoaRepository;
 
 	public Operador findById(Integer id) {
 		Optional<Operador> operador = repository.findById(id);
@@ -52,8 +57,8 @@ public class OperadorService {
 		return repository.save(oldObj);
 	}
 
-	public Operador findByCPF(OperadorDTO objDTO) {
-		Operador obj = repository.findByCPF(objDTO.getCpf());
+	public Pessoa findByCPF(OperadorDTO objDTO) {
+		Pessoa obj = pessoaRepository.findByCPF(objDTO.getCpf());
 		return (obj != null) ? obj : null;
 	}
 
