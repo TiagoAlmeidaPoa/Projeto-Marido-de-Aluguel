@@ -1,5 +1,7 @@
 package com.tiago.maridodealuguel.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,12 @@ public class ClienteController {
 	public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id){
 		ClienteDTO obj = new ClienteDTO(service.findById(id));
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<ClienteDTO>> findAll(){
+		List<ClienteDTO> dtos = service.findAll();
+		return ResponseEntity.ok().body(dtos);
 	}
 	
 }
