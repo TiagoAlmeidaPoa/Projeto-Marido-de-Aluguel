@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +47,18 @@ public class ClienteService {
 	public Pessoa findByCPF(ClienteDTO objDTO) {
 		Pessoa obj = pessoaRepository.findByCPF(objDTO.getCpf());
 		return (obj != null) ? obj : null;
+	}
+	
+	public Cliente update(Integer id, @Valid ClienteDTO objDTO) {
+		Cliente cliente = findById(id);
+		if(findByCPF(objDTO) != null && findByCPF(objDTO).getId() != id) {
+			throw new DataIntegratyViolationException("CPF já cadastrado na base de dados!");
+		}
+		cliente.setCpf(objDTO.getCpf());
+		cliente.setName(objDTO.getNome());
+		cliente.setTelefone(objDTO.getTelefone());
+		
+		return repository.save(cliente);
 	}
 
 }
