@@ -3,6 +3,8 @@ package com.tiago.maridodealuguel.dtos;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotEmpty;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tiago.maridodealuguel.domain.OS;
 
@@ -19,9 +21,14 @@ public class OSDTO implements Serializable {
 	
 	private Integer prioridade;
 	private Integer status;
+	
+	@NotEmpty(message = "O campo OBSERVACOES é requerido")
 	private String observacoes;
+	
 	private Integer operador;
+	
 	private Integer cliente;
+	
 	private Double preco;
 
 	public OSDTO() {
