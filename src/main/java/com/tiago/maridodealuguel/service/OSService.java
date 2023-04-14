@@ -1,5 +1,7 @@
 package com.tiago.maridodealuguel.service;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,22 +21,23 @@ import com.tiago.maridodealuguel.service.exceptions.ObjectNotFoundException;
 
 @Service
 public class OSService {
-	
+
 	@Autowired
 	private OSRepository repository;
-	
+
 	@Autowired
 	private OperadorService operadorService;
-	
+
 	@Autowired
 	private ClienteService clienteService;
-	
+
 	public OS findById(Integer id) {
-			Optional<OS> obj = repository.findById(id);
-			return obj.orElseThrow( () -> new ObjectNotFoundException("Objeto não encontrado! ID: " + id + ", Tipo: " + OS.class.getName()) );
+		Optional<OS> obj = repository.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! ID: " + id + ", Tipo: " + OS.class.getName()));
 	}
 
-	public List<OSDTO> findAll() {		
+	public List<OSDTO> findAll() {
 		return repository.findAll().stream().map(x -> new OSDTO(x)).toList();
 	}
 
@@ -43,6 +46,11 @@ public class OSService {
 		return repository.save(os);
 	}
 	
+	public OS update(@Valid OSDTO dto) {
+		findById(dto.getId());
+		return repository.save(fromDTO(dto));
+	}
+
 	private OS fromDTO(OSDTO dto) {
 		OS os = new OS();
 		os.setId(dto.getId());
@@ -50,13 +58,17 @@ public class OSService {
 		os.setPrioridade(Prioridade.toEnum(dto.getPrioridade()));
 		os.setStatus(Status.toEnum(dto.getStatus()));
 		os.setPreco(dto.getPreco());
-		
+
 		Operador oper = operadorService.findById(dto.getOperador());
 		Cliente cli = clienteService.findById(dto.getCliente());
-		
+
 		os.setOperador(oper);
 		os.setCliente(cli);
 		
+		if(os.getStatus().getCod().equals(2)) {
+			os.setDataFechamento(LocalDateTime.now());
+		}
+
 		return os;
 	}
 
