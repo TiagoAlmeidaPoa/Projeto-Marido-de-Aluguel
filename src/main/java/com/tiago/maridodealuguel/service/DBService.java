@@ -34,12 +34,12 @@ public class DBService {
 		OS os1 = new OS(null, Prioridade.ALTA, Status.ABERTO, "Testando ordem de servico", op1, cli1, 80.00);
 		OS os2 = new OS(null, Prioridade.ALTA, Status.ABERTO, "Terraplanagem 200 metros", op1, cli1, 1200.00);
 
-		op1.getListaOS().addAll(Arrays.asList(os1,os2));
-		cli1.getListaOS().addAll(Arrays.asList(os1,os2));
+		op1.getListaOS().addAll(Arrays.asList(os1, os2));
+		cli1.getListaOS().addAll(Arrays.asList(os1, os2));
 
-		operadorRepository.saveAll(Arrays.asList(op1,op2,op3));
+		operadorRepository.saveAll(Arrays.asList(op1, op2, op3));
 		clienteRepository.saveAll(Arrays.asList(cli1));
-		osRepository.saveAll(Arrays.asList(os1,os2));
+		osRepository.saveAll(Arrays.asList(os1, os2));
 	}
 
 }

@@ -12,23 +12,23 @@ public class OSDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
-	
+
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime dataAbertura;
-	
+
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime dataFechamento;
-	
+
 	private Integer prioridade;
 	private Integer status;
-	
+
 	@NotEmpty(message = "O campo OBSERVACOES é requerido")
 	private String observacoes;
-	
+
 	private Integer operador;
-	
+
 	private Integer cliente;
-	
+
 	private Double preco;
 
 	public OSDTO() {

@@ -1,7 +1,6 @@
 package com.tiago.maridodealuguel.service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,7 +44,7 @@ public class OSService {
 		OS os = fromDTO(dto);
 		return repository.save(os);
 	}
-	
+
 	public OS update(@Valid OSDTO dto) {
 		findById(dto.getId());
 		return repository.save(fromDTO(dto));
@@ -64,8 +63,8 @@ public class OSService {
 
 		os.setOperador(oper);
 		os.setCliente(cli);
-		
-		if(os.getStatus().getCod().equals(2)) {
+
+		if (os.getStatus().getCod().equals(2)) {
 			os.setDataFechamento(LocalDateTime.now());
 		}
 

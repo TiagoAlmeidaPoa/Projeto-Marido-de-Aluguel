@@ -22,34 +22,34 @@ import com.tiago.maridodealuguel.service.OSService;
 @RestController
 @RequestMapping(value = "/ordens")
 public class OSController {
-	
+
 	@Autowired
 	private OSService service;
-	
+
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<OSDTO> findById(@PathVariable Integer id){
+	public ResponseEntity<OSDTO> findById(@PathVariable Integer id) {
 		OSDTO dto = new OSDTO(service.findById(id));
 		return ResponseEntity.ok(dto);
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<List<OSDTO>> findAll(){
+	public ResponseEntity<List<OSDTO>> findAll() {
 		List<OSDTO> listaDTO = service.findAll();
 		return ResponseEntity.ok(listaDTO);
-	}	
-	
+	}
+
 	@PostMapping
-	public ResponseEntity<OSDTO> create(@Valid @RequestBody OSDTO dto){
+	public ResponseEntity<OSDTO> create(@Valid @RequestBody OSDTO dto) {
 		dto = new OSDTO(service.create(dto));
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
-		
+
 		return ResponseEntity.created(uri).build();
 	}
-	
+
 	@PutMapping
 	public ResponseEntity<OSDTO> update(@Valid @RequestBody OSDTO dto) {
 		dto = new OSDTO(service.update(dto));
 		return ResponseEntity.ok(dto);
 	}
-	
+
 }
